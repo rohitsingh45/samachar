@@ -1,15 +1,16 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 
 export default class Navbar extends Component {
-    
-
+   
     render() {
         return (
-            <nav className="navbar navbar-expand-lg bg-body-tertiary">
+            <nav className={`navbar navbar-expand-lg bg-${this.props.modeVariable} navbar-${this.props.modeVariable}`}>
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="/">
+                    <Link className="navbar-brand" to="/">
                         Samachar
-                    </a>
+                    </Link>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -24,44 +25,39 @@ export default class Navbar extends Component {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/">
+                                <Link className="nav-link active" aria-current="page" to="/">
                                     Home
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">
+                                <Link className="nav-link" to="/sports">
                                     Sports
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">
+                                <Link className="nav-link" to="/technology">
                                     Technology
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">
+                                <Link className="nav-link" to="/business">
                                     Business
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">
+                                <Link className="nav-link" to="/entertainment">
                                     Entertainment
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">
-                                    General
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/">
+                                <Link className="nav-link" to="/health">
                                     Health
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">
+                                <Link className="nav-link" to="/science">
                                     Science
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
@@ -72,6 +68,7 @@ export default class Navbar extends Component {
                             type="checkbox"
                             role="switch"
                             id="flexSwitchCheckDefault"
+                            onClick={this.props.modeMethod}
                         />
                         <label
                             className="form-check-label"

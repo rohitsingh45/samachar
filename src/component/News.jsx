@@ -12,10 +12,14 @@ export default class News extends Component {
     super();
     // hooks when using class component.
     this.state = {
+      // articles for our webpage
       articles: [],
+      // Loading variable for keeping track wheter page is loading or not for adding spinner...
       loading: false,
+      // Page variable representing page number default value is 1, when button clicked on next then autoincrement and autodecrement for prev button.
       page: 1,
-      currPageSize: 20,
+      // curr number of a
+      currPageSize: 12,
     };
   }
 
@@ -24,6 +28,8 @@ export default class News extends Component {
     country: 'us',
     category: 'sports',
   };
+
+  // Declaring the constraints on the proptypes we are getting for news api...
   static propsTypesAssignment = {
     pageSize: PropTypes.number.isRequired,
     country: PropTypes.string.isRequired,
@@ -36,6 +42,7 @@ export default class News extends Component {
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
+
     this.setState({
       articles: parsedData.articles,
       totalAvilableResult: parsedData.totalResults,
@@ -47,14 +54,15 @@ export default class News extends Component {
   handlePrevPageClick = async () => {
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=c2bc751cc45a41efbed5f449fa0a47bb&page=${
       this.state.page - 1
-    }&pageSize=${this.props.pageSize}`;
+      }&pageSize=${this.props.pageSize}`;
+    
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
     this.setState({
       articles: parsedData.articles,
       page: this.state.page - 1,
-      currPageSize: this.state.currPageSize - 20,
+      currPageSize: this.state.currPageSize - 12,
       loading: false,
     });
   };
@@ -70,7 +78,7 @@ export default class News extends Component {
     this.setState({
       articles: parsedData.articles,
       page: this.state.page + 1,
-      currPageSize: this.state.currPageSize + 20,
+      currPageSize: this.state.currPageSize + 12,
       loading: false,
     });
 
@@ -96,7 +104,7 @@ export default class News extends Component {
               >
                 &larr;Prev
               </button>
-              <h3 className="text-center">Samachar top headlines</h3>
+              <h3 className={`text-center text-${this.props.mode === 'light'?'dark':'light'}`}>Samachar top headlines</h3>
 
               <button
                 disabled={
@@ -116,6 +124,7 @@ export default class News extends Component {
                 return (
                   <div className="col-md-4 my-2" key={element.url}>
                     <NewsItem
+                      mode = {this.props.mode}
                       title={
                         element.title
                           ? element.title.slice(0, 61)
